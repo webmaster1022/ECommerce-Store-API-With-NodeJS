@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import { Pool } from 'pg';
 
 
+dotenv.config();
 
 
 
@@ -10,8 +11,7 @@ const {
     POSTGRES_DB_DEV,
     POSTGRES_USER,
     POSTGRES_PASSWORD,
-    POSTGRES_DB_TEST,
-    ENV
+    
 }=process.env;
 
 const client = new Pool({
