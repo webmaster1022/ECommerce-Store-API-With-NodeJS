@@ -76,4 +76,17 @@ export class orderStore{
             throw new Error(`Could not add product ${productId} to order ${orderId}: ${error}`)
         }
     }
+
+    async orderProperty(id:number):Promise<Order>{
+        try {
+            const sql = 'SELECT * FROM orders WHERE user_id=($1)';
+        const conn = await client.connect();
+        const result = await conn.query(sql,[id]);
+        const order = result.rows[0];
+        conn.release();
+        return order
+        } catch (error) {
+            throw new Error(`Cannot retrieve order with user_id:${id} ${error}`)
+        }
+    }
 }

@@ -1,7 +1,24 @@
-import express,{Request,Response} from "express";
+import express,{Request,Response,NextFunction} from "express";
 import { Order,orderStore } from "../models/order";
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
+
+dotenv.config();
 
 const store = new orderStore();
+
+const verifyAuthToken = (req: Request, res: Response, next:NextFunction) => {
+    try {
+        const authorizationHeader = (req.headers.authorization) as string
+        const token = authorizationHeader.split(' ')[1]
+        const decoded = jwt.verify(token, (process.env.TOKEN_SECRET) as string)
+
+        next()
+    } catch (error) {
+        res.status(401)
+        res.json(`Access denied,Invalid token. Error: ${error}`)
+    }
+}
 
 const index = async (_req:Request,res:Response)=>{
     const orders = await store.index();
@@ -40,12 +57,18 @@ const addProduct = async(req:Request,res:Response) =>{
     res.json(added);
 }
 
+const orderProperty = async(req:Request, res:Response)=>{
+    const owned = await store.orderProperty(parseInt(req.params.id));
+    res.json(owned);
+}
+
 const orders_routes=(app: express.Application) =>{
     app.get('/orders',index)
     app.post('/orders',create)
     app.get('/orders/:id',show)
     app.delete('/orders/:id',remove)
     app.post('/orders/:id/products',addProduct)
+    app.get('/orders/:id/users',verifyAuthToken,orderProperty)
 }
 export default orders_routes
 
