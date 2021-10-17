@@ -19,7 +19,7 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Index [token required] (GET:'/users')
 - Show [token required] (GET :'/users/:id')
 - Create [token required] (POST:'/users')
-- [EXTRA] Authenticate [token required] (POST:'/users/authenticate') 
+- [EXTRA] Authenticate (POST:'/users/authenticate') 
 - [EXTRA] Delete [token required] (DELETE:'/users/:id') 
 
 
