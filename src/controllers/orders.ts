@@ -16,10 +16,9 @@ const show = async(req:Request,res:Response)=>{
 const create = async (req: Request, res: Response) => {
     try {
         const order: Order = {
-            product_id: req.body.product_id,
-            quantity: req.body.quantity,
+            
+            status:req.body.status,
             user_id:req.body.user_id,
-            status:req.body.status
 
         }
 
@@ -36,13 +35,18 @@ const remove = async (req: Request, res: Response) => {
     res.json(deleted)
 }
 
+const addProduct = async(req:Request,res:Response) =>{
+    const added = await store.addProduct(parseInt(req.body.quantity),req.params.id,req.body.product_id);
+    res.json(added);
+}
+
 const orders_routes=(app: express.Application) =>{
     app.get('/orders',index)
     app.post('/orders',create)
     app.get('/orders/:id',show)
     app.delete('/orders/:id',remove)
+    app.post('/orders/:id/products',addProduct)
 }
-
 export default orders_routes
 
 /*
