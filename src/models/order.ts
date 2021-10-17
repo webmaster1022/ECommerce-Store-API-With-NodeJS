@@ -3,10 +3,8 @@ import client from "../database";
 
 export type Order = {
     id?:number;
-    product_id:number;
-    quantity:number;
-    user_id:number;
     status:string;
+    user_id:number;
 }
 
 
@@ -44,8 +42,8 @@ export class orderStore{
     async create(o:Order):Promise<Order> {
         try {
             const conn = await client.connect(); //connectos to database
-            const sql = `INSERT INTO orders (product_id,quantity,user_id,status) VALUES($1,$2,$3,$4) RETURNING *`;//SQL command to retrieve data from database table
-            const result = await conn.query(sql,[o.product_id,o.quantity,o.user_id,o.status]); //store results from sql query
+            const sql = `INSERT INTO orders (status,user_id) VALUES($1,$2) RETURNING *`;//SQL command to retrieve data from database table
+            const result = await conn.query(sql,[o.status,o.user_id]); //store results from sql query
             conn.release(); //close database connection
             const order = result.rows[0];
             return order;
@@ -63,6 +61,19 @@ export class orderStore{
             return result.rows[0];
         } catch (error) {
             throw new Error(`Cannot delete product with id:${id} ${error}`)
+        }
+    }
+
+    async addProduct(quantity:number,orderId:string,productId:string):Promise<Order> {
+        try {
+            const sql = 'INSERT INTO order_products(quantity,order_id,product_id) VALUES($1,$2,$3)';
+            const conn = await client.connect();
+            const result = await conn.query(sql,[quantity,orderId,productId]);
+            const order = result.rows[0];
+            conn.release();
+            return order
+        } catch (error) {
+            throw new Error(`Could not add product ${productId} to order ${orderId}: ${error}`)
         }
     }
 }
