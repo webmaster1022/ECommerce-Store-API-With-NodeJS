@@ -1,11 +1,25 @@
-import express,{Request,Response} from "express";
+import express,{Request,Response,NextFunction} from "express";
 import dotenv from 'dotenv';
 import { User,userStore } from "../models/user";
 import jwt from 'jsonwebtoken';
 
 dotenv.config();
+
+
 const store = new userStore();
 
+const verifyAuthToken = (req: Request, res: Response, next:NextFunction) => {
+    try {
+        const authorizationHeader = (req.headers.authorization) as string
+        const token = authorizationHeader.split(' ')[1]
+        const decoded = jwt.verify(token, (process.env.TOKEN_SECRET) as string)
+
+        next()
+    } catch (error) {
+        res.status(401)
+        res.json(`Access denied,Invalid token`)
+    }
+}
 
 const index = async (_req:Request,res:Response)=>{
     const users = await store.index();
@@ -49,11 +63,11 @@ const signin = async (req: Request, res: Response) => {
 }
 
 const users_routes=(app: express.Application) =>{
-    app.get('/users',index)
-    app.post('/users',create)
+    app.get('/users',verifyAuthToken, index)
+    app.post('/users',verifyAuthToken,create)
     app.post('/users/authenticate',signin)
-    app.get('/users/:id',show)
-    app.delete('/users/:id',destroy)
+    app.get('/users/:id',verifyAuthToken,show)
+    app.delete('/users/:id',verifyAuthToken,destroy)
 }
 
 export default users_routes
