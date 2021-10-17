@@ -5,7 +5,7 @@
   "main": "server.ts",
   "scripts": {
     "start": "node dist/server.js",
-    "nodemon":"nodemon src/server.ts",
+    "nodemon": "nodemon src/server.ts",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess 'node ./dist/server.js'",
     "test": "jasmine-ts",
     "tsc": "tsc"
@@ -22,7 +22,9 @@
     "typescript": "^4.1.3"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/jasmine": "^3.6.3",
+    "bcrypt": "^5.0.1",
     "dotenv": "^10.0.0",
     "jasmine": "^3.6.4",
     "jasmine-spec-reporter": "^6.0.0",
