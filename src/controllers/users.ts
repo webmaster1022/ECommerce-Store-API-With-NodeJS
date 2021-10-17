@@ -1,7 +1,11 @@
 import express,{Request,Response} from "express";
+import dotenv from 'dotenv';
 import { User,userStore } from "../models/user";
+import jwt from 'jsonwebtoken';
 
+dotenv.config();
 const store = new userStore();
+
 
 const index = async (_req:Request,res:Response)=>{
     const users = await store.index();
@@ -14,7 +18,7 @@ const show = async(req:Request,res:Response)=>{
 }
 
 const create = async (req: Request, res: Response) => {
-    try {
+    
         const user: User = {
             first_name: req.body.first_name,
             last_name: req.body.last_name,
@@ -22,11 +26,12 @@ const create = async (req: Request, res: Response) => {
             password:req.body.password,
         }
             
+        try {
 
 
-
-        const newUser = await store.create(user)
-        res.json(newUser)
+        const newUser = await store.create(user);
+        const token =jwt.sign({user: newUser},(process.env.TOKEN_SECRET) as string);
+        res.json(token)
     } catch(err) {
         res.status(400)
         res.json(err)
