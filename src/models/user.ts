@@ -49,7 +49,7 @@ export class userStore{
     async create(u:User):Promise<User> {
         try {
             const conn = await client.connect(); //connectos to database
-            const sql = `INSERT INTO users (first_name,last_name,username,password_digest) VALUES($1,$2,$3,$4) RETURNING *`;//SQL command to retrieve data from database table
+            const sql = `INSERT INTO users (first_name,last_name,username,password) VALUES($1,$2,$3,$4) RETURNING *`;//SQL command to retrieve data from database table
             
             const salt_rounds=(SALT_ROUNDS) as string;
             const hash = bcrypt.hashSync(u.password+pepper,parseInt(salt_rounds))
