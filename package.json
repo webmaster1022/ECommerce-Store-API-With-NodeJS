@@ -7,7 +7,8 @@
     "start": "node dist/server.js",
     "nodemon": "nodemon src/server.ts",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess 'node ./dist/server.js'",
-    "test": "jasmine-ts",
+    "jasmine": "jasmine-ts",
+    "test": "set ENV=test&& npm run jasmine && db-migrate --env test up && db-migrate db:drop test",
     "tsc": "tsc"
   },
   "author": "Jordi Riera",
@@ -31,7 +32,7 @@
     "db-migrate": "^1.0.0-beta.16",
     "dotenv": "^10.0.0",
     "jasmine": "^3.6.4",
-    "jasmine-spec-reporter": "^6.0.0",
+    "jasmine-spec-reporter": "^7.0.0",
     "jasmine-ts": "^0.3.0",
     "nodemon": "^2.0.13",
     "ts-node": "^9.1.1",
