@@ -8,7 +8,7 @@
     "nodemon": "nodemon src/server.ts",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess 'node ./dist/server.js'",
     "jasmine": "jasmine",
-    "test": "set ENV=test&& npm run jasmine && db-migrate --env test up && db-migrate db:drop test",
+    "test": "set ENV=test&& npm run jasmine && db-migrate --env test up && db-migrate --env test down -c 4",
     "tsc": "tsc"
   },
   "author": "Jordi Riera",
