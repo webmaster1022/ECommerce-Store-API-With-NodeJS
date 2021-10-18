@@ -7,7 +7,7 @@
     "start": "node dist/server.js",
     "nodemon": "nodemon src/server.ts",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess 'node ./dist/server.js'",
-    "jasmine": "jasmine-ts",
+    "jasmine": "jasmine",
     "test": "set ENV=test&& npm run jasmine && db-migrate --env test up && db-migrate db:drop test",
     "tsc": "tsc"
   },
