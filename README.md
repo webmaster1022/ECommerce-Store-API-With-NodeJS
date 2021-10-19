@@ -14,7 +14,19 @@ verb applied to them as indicated in the Endpoint section of the requirements fi
 
 - [Bugs](https://github.com/Jriera/e-store_backend_api/issues "Issues Page")
 
-## Screenshots
+## Database users and setup:
+**Create user**
+
+  sh:  CREATE USER storefront_admin WITH PASSWORD password123
+
+**Create database via SQL query** 
+ CREATE DATABASE storefront
+ CREATE DATABASE test_storefront
+
+**grant privlieges to user on both databases**
+GRANT ALL PRIVILEGES ON DATABASE storefront TO storefront_admin
+GRANT ALL PRIVILEGES ON DATABASE test_storefront TO storefront_admin
+
 
 
 
