@@ -4,7 +4,74 @@ The company stakeholders want to create an online storefront to showcase their g
 These are the notes from a meeting with the frontend developer that describe what endpoints the API needs to supply, as well as data shapes the frontend and backend have agreed meet the requirements of the application. 
 ## Database schema
 
-![database schema](database_schema.jpg)
+##### General overview
+                  List of relations
+ Schema |       Name       | Type  |      Owner       
+--------+------------------+-------+------------------
+ public | migrations       | table | storefront_admin
+ public | migrations_state | table | storefront_admin
+ public | order_products   | table | storefront_admin
+ public | orders           | table | storefront_admin
+ public | products         | table | storefront_admin
+ public | users            | table | storefront_admin
+(6 rows)
+
+##### Products table Schema
+                                    Table "public.products"
+  Column   |          Type          | Collation | Nullable |               Default
+-----------+------------------------+-----------+----------+--------------------------------------
+ id        | integer                |           | not null | nextval('products_id_seq'::regclass)
+ name      | character varying(100) |           |          |
+ price     | integer                |           |          |
+ cathegory | character varying(100) |           |          |
+Indexes:
+    "products_pkey" PRIMARY KEY, btree (id)
+Referenced by:
+    TABLE "order_products" CONSTRAINT "order_products_product_id_fkey" FOREIGN KEY (product_id) REFERENCES products(id)
+
+##### Users table Schema
+                                            Table "public.users"
+     Column      |          Type          | Collation | Nullable |              Default
+-----------------+------------------------+-----------+----------+-----------------------------------
+ id              | integer                |           | not null | nextval('users_id_seq'::regclass)
+ first_name      | character varying(255) |           |          |
+ last_name       | character varying(255) |           |          |
+ username        | character varying(100) |           |          |
+ password_digest | character varying(255) |           |          |
+Indexes:
+    "users_pkey" PRIMARY KEY, btree (id)
+Referenced by:
+    TABLE "orders" CONSTRAINT "orders_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id)
+
+##### Orders table Schema
+                                    Table "public.orders"
+ Column  |         Type          | Collation | Nullable |              Default
+---------+-----------------------+-----------+----------+------------------------------------
+ id      | integer               |           | not null | nextval('orders_id_seq'::regclass)
+ status  | character varying(64) |           |          |
+ user_id | bigint                |           |          |
+Indexes:
+    "orders_pkey" PRIMARY KEY, btree (id)
+Foreign-key constraints:
+    "orders_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id)
+Referenced by:
+    TABLE "order_products" CONSTRAINT "order_products_order_id_fkey" FOREIGN KEY (order_id) REFERENCES orders(id) 
+
+##### Order_products table Schema
+
+                              Table "public.order_products"
+   Column   |  Type   | Collation | Nullable |                  Default
+------------+---------+-----------+----------+--------------------------------------------
+ id         | integer |           | not null | nextval('order_products_id_seq'::regclass)
+ quantity   | integer |           |          |
+ order_id   | bigint  |           |          |
+ product_id | bigint  |           |          |
+Indexes:
+    "order_products_pkey" PRIMARY KEY, btree (id)
+Foreign-key constraints:
+    "order_products_order_id_fkey" FOREIGN KEY (order_id) REFERENCES orders(id)
+    "order_products_product_id_fkey" FOREIGN KEY (product_id) REFERENCES products(id)
+
 
 ## API Endpoints
 #### Products
