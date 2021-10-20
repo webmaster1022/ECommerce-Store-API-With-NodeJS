@@ -17,7 +17,7 @@ verb applied to them as indicated in the Endpoint section of the requirements fi
 ## Database users and setup:
 **Create user**
 
-  sh:  CREATE USER storefront_admin WITH PASSWORD password123
+  psql-sh:  CREATE USER storefront_admin WITH PASSWORD password123
 
 **Create database via SQL query** 
  CREATE DATABASE storefront
@@ -33,6 +33,11 @@ GRANT ALL PRIVILEGES ON DATABASE test_storefront TO storefront_admin
 ## Available Commands
 
 In the project directory, you can run:
+
+### `db-start"
+This command will run 'db-migrate db:up storefront' this will initialize the developement database with the tables mentioned in the requirements database schema. 
+### `db-test-start"
+This command will run 'db-migrate db:up test_storefront' this will initialize the test database with the tables mentioned in the requirements database schema. 
 
 ### `npm run start"
 
@@ -62,6 +67,7 @@ For running the developement version of the app
 - Jasmine
 - NPM
 - PostgreSQL
+- JWT (json web tokens for authenitcation)
 
 ## Future Updates
 
