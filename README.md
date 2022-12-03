@@ -3,6 +3,7 @@
 <p align="left">The main features of this project are : </br>
 
 1: Provides a stable storefront API based on Node.js and Postgres DB.
+
 2: The API default endpoints are /products /orders and /users.
 
 </p>
@@ -35,16 +36,16 @@ This command will run 'db-migrate db:up test_storefront' this will initialize th
 ### `npm run start`
 This command runs 'node dist/server.js' which starts the express app on localhost:3000. Open http://localhost:3000/ and add the endpoint mentioned above.
 
-### `"npm run build`
+### `npm run build`
 Build the app for production into the `dist` folder. It correctly converts all dev code from .ts into working JavaScript files.
 
-### `"npm run test`
+### `npm run test`
 - This firstly launches a  test database migration (test_storefront) and creates all the necessary tables for the API to function in a testing environment.
 - After that the test will run build in order to transpile the typescript in case it hadn't been done before.
 - Once the build is completed the test will launch jasmine, which will test the endpoints for each model.
 - Finally when all the tests are complete a down migration will be executed in order to clean the database and always have a clean slate to run the tests
 
-### `"npm run nodemon`
+### `npm run nodemon`
 For running the developement version of the app
 
 ## Built With
