@@ -1,18 +1,11 @@
-<h1 align="center">e-store Backend API</h1>
+<h1 align="center">ECommerce-Store Backend API</h1>
 
-<p align="left"> The main functions of this project are:</br>
+<p align="left">The main features of this project are : </br>
 
-1: To provide a reliable storefornt API based on node and Postgres DB</br>
-2: The API main endpoints are /products /orders and /users Each endpoint will have different behaviours depending on the
-verb applied to them as indicated in the Endpoint section of the requirements file [requirements](REQUIREMENTS.md "Requirements")
+1: Provides a stable storefront API based on Node.js and Postgres DB.
+2: The API default endpoints are /products /orders and /users.
 
 </p>
-
-## Links
-
-- [Repo](https://github.com/Jriera/e-store_backend_api "Repo")
-
-- [Bugs](https://github.com/Jriera/e-store_backend_api/issues "Issues Page")
 
 ## Database users and setup:
 **Create user**
@@ -20,63 +13,49 @@ verb applied to them as indicated in the Endpoint section of the requirements fi
   psql-sh:  CREATE USER storefront_admin WITH PASSWORD password123
 
 **Create database via SQL query** 
- CREATE DATABASE storefront
- CREATE DATABASE test_storefront
+
+  CREATE DATABASE storefront
+  CREATE DATABASE test_storefront
 
 **grant privlieges to user on both databases**
-GRANT ALL PRIVILEGES ON DATABASE storefront TO storefront_admin
-GRANT ALL PRIVILEGES ON DATABASE test_storefront TO storefront_admin
 
-
-
+  GRANT ALL PRIVILEGES ON DATABASE storefront TO storefront_admin
+  GRANT ALL PRIVILEGES ON DATABASE test_storefront TO storefront_admin
 
 ## Available Commands
 
 In the project directory, you can run:
 
-### `db-start"
-This command will run 'db-migrate db:up storefront' this will initialize the developement database with the tables mentioned in the requirements database schema. 
-### `db-test-start"
+### `db-start`
+This command runs 'db-migrate db:up storefront' to initialize the development database with the tables mentioned in the requirements database schema.
+
+### `db-test-start`
 This command will run 'db-migrate db:up test_storefront' this will initialize the test database with the tables mentioned in the requirements database schema. 
 
-### `npm run start"
+### `npm run start`
+This command runs 'node dist/server.js' which starts the express app on localhost:3000. Open http://localhost:3000/ and add the endpoint mentioned above.
 
-The command will run 'node dist/server.js which will start the express app on localhost:3000. Open [http://localhost:3000/](http://localhost:3000/) and append the endpoints mentioned above. for instance http://localhost:3000/products (indexes all products). However in order to test to its fullest it is recommended the usage of an app such as postman in order to easily 
-test different http requests (GET,POST,DELETE etc)
+### `"npm run build`
+Build the app for production into the `dist` folder. It correctly converts all dev code from .ts into working JavaScript files.
 
-### `"npm run build"
-
-Builds the app for production to the `dist` folder. It correctly transpiles all the dev code in .ts to working javascript files
-
-### `"npm run test"
-
+### `"npm run test`
 - This firstly launches a  test database migration (test_storefront) and creates all the necessary tables for the API to function in a testing environment.
 - After that the test will run build in order to transpile the typescript in case it hadn't been done before.
 - Once the build is completed the test will launch jasmine, which will test the endpoints for each model.
-- Finally when all the tests are complete a down migration will be executed in order to clean the database and always have 
-a clean slate to run the tests
-### `"npm run nodemon"
+- Finally when all the tests are complete a down migration will be executed in order to clean the database and always have a clean slate to run the tests
 
+### `"npm run nodemon`
 For running the developement version of the app
 
 ## Built With
-
 - TypeScript
 - Express
-- Node
+- Node.js
 - Jasmine
 - NPM
 - PostgreSQL
-- JWT (json web tokens for authenitcation)
+- JWT (JSON web Tokens for Authenitcation)
 
 ## Future Updates
-
 - [ ] Include further endpoints implementations
 - [ ] Work on a potential front end with a framework
-
-
-## Author
-
-**Jordi Riera**
-
-- [Profile](https://github.com/Jriera "Jordi Riera")
